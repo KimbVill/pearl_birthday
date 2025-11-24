@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="happy.css">
+    <link rel="icon" href="C:\Users\63920\Downloads\pearl1.jpg">
+    <title>Happy</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #ffd6e0, #fff7d6);
+            overflow-x: hidden;
+            color: #333;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #ff4f77;
+            font-weight: 700;
+            animation: popIn 1.3s ease-out;
+        }
+
+        p {
+            max-width: 650px;
+            font-size: 1.2rem;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        /* Balloons */
+        .balloon {
+            position: absolute;
+            bottom: -150px;
+            width: 60px;
+            height: 80px;
+            background: #ff8fb1;
+            border-radius: 50% 50% 45% 45%;
+            animation: float 9s infinite ease-in-out;
+            opacity: 0.8;
+        }
+
+        .balloon::after {
+            content: "";
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            width: 2px;
+            height: 25px;
+            background: #555;
+        }
+
+        /* Constellation Canvas */
+        #constellationCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60vh;
+            pointer-events: none;
+            opacity: 0.9;
+        }
+
+        /* Gallery Carousel */
+        .gallery-container {
+            margin-top: 40px;
+            width: 90%;
+            max-width: 600px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            animation: fadeIn 3s ease;
+        }
+
+        .gallery-slide {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .gallery-slide img {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .btn {
+            margin-top: 25px;
+            background: #ff4f77;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #ff2d59;
+        }
+
+        @keyframes float {
+            0% {transform: translateX(0) translateY(0);}
+            50% {transform: translateX(-40px) translateY(-200px);}
+            100% {transform: translateX(0) translateY(-400px);}
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: red;
+            top: -10px;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        /* ✨ Lantern Feature */
+        .lantern {
+            position: absolute;
+            width: 80px;
+            height: 120px;
+            background: rgba(255, 200, 150, 0.8);
+            border-radius: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px rgba(255,150,100,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #7a3e00;
+            font-size: 0.9rem;
+            animation: rise 6s linear forwards;
+        }
+
+        @keyframes rise {
+            0% { bottom: -150px; opacity: 0; }
+            10% { opacity: 1; }
+            100% { bottom: 100vh; opacity: 0; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Floating Balloons -->
+    <div class="balloon" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="balloon" style="left: 50%; background:#ffd36b; animation-delay: 2s;"></div>
+    <div class="balloon" style="left: 80%; background:#9ad0f5; animation-delay: 4s;"></div>
+
+    <!-- Constellation -->
+    <canvas id="constellationCanvas"></canvas>
+
+    <div class="container">
+        <h1>🎉 Happy Birthday, Pearl! 🎂</h1>
+        <p>
+            May your special day be filled with joy, laughter, and wonderful memories.  
+            You deserve all the love and happiness in the world. Enjoy your beautiful day, Pearl! ✨
+        </p>
+
+        <!-- MUSIC -->
+        <audio id="bgMusic" autoplay loop hidden>
+            <source src="C:\Users\63920\Downloads\saan.mp3" type="audio/mpeg">
+        </audio>
+
+        <button class="btn" onclick="toggleMusic()">Play / Pause Music 🎵</button>
+
+        <!-- PHOTO GALLERY -->
+        <div class="gallery-container">
+            <div class="gallery-slide" id="slide">
+                <img src="C:\Users\63920\Downloads\pearl1.jpg">
+                <img src="C:\Users\63920\Downloads\pearl2.jpg">
+                <img src="C:\Users\63920\Downloads\pearl3.jpg">
+                <img src="C:\Users\63920\Downloads\pearl4.jpg">
+            </div>
+        </div>
+
+        <a href="C:\Users\63920\Downloads\birthday.html">
+            <button class="btn">Go to Another Page</button>
+        </a>
+
+    </div>
+
+    <script>
+        /* Music Toggle */
+        const music = document.getElementById("bgMusic");
+        function toggleMusic() {
+            music.paused ? music.play() : music.pause();
+        }
+
+        /* Carousel Auto Slide */
+        let index = 0;
+        function slideShow() {
+            const slide = document.getElementById("slide");
+            const total = slide.children.length;
+
+            index = (index + 1) % total;
+            slide.style.transform = `translateX(-${index * 100}%)`;
+        }
+        setInterval(slideShow, 3000);
+
+        /* Confetti Generator */
+        function createConfetti() {
+            const confetti = document.createElement("div");
+            confetti.classList.add("confetti");
+
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+            document.body.appendChild(confetti);
+
+            setTimeout(() => confetti.remove(), 5000);
+        }
+        setInterval(createConfetti, 200);
+
+        /* ⭐ CONSTELLATION NAME REVEAL ⭐ */
+        const canvas = document.getElementById("constellationCanvas");
+        const ctx = canvas.getContext("2d");
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight * 0.6;
+        }
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
+
+        const pastelColors = ["#ffd6e0", "#ff9ecf", "#ffe4f2", "#ffc2dd", "#ffb6d9"];
+
+        const points = [
+            {x: 100, y: 200}, {x: 100, y: 100}, {x: 140, y: 130},
+            {x: 200, y: 200}, {x: 200, y: 100},
+            {x: 260, y: 200}, {x: 290, y: 150}, {x: 260, y: 100},
+            {x: 330, y: 100}, {x: 330, y: 200}, {x: 380, y: 200},
+            {x: 430, y: 100}, {x: 430, y: 200}
+        ];
+
+        let drawnPoints = [];
+        let currentPoint = 0;
+
+        function animateStars() {
+            if (currentPoint >= points.length) {
+                connectLines();
+                return;
+            }
+
+            let p = points[currentPoint];
+            let color = pastelColors[Math.floor(Math.random() * pastelColors.length)];
+
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            drawnPoints.push(p);
+            currentPoint++;
+
+            setTimeout(animateStars, 200);
+        }
+
+        function connectLines() {
+            ctx.strokeStyle = "rgba(255, 182, 193, 0.8)";
+            ctx.lineWidth = 2;
+
+            ctx.beginPath();
+            ctx.moveTo(drawnPoints[0].x, drawnPoints[0].y);
+
+            drawnPoints.forEach(pt => ctx.lineTo(pt.x, pt.y));
+            ctx.stroke();
+        }
+
+        animateStars();
+
+         /* ✨ Firefly Generator ✨ */
+    function createFireflies() {
+        for (let i = 0; i < 20; i++) {
+            const f = document.createElement("div");
+            f.className = "firefly";
+
+            // Random screen position
+            f.style.top = Math.random() * 100 + "vh";
+            f.style.left = Math.random() * 100 + "vw";
+
+            // Random animation timing
+            f.style.animationDuration = (5 + Math.random() * 5) + "s";
+            f.style.animationDelay = Math.random() * 3 + "s";
+
+            document.body.appendChild(f);
+        }
+    }
+
+    createFireflies();
+
+    /* ✨ Star Trail Following Mouse ✨ */
+document.addEventListener("mousemove", function(e) {
+    const star = document.createElement("div");
+    star.className = "star";
+
+    star.style.left = e.clientX + "px";
+    star.style.top = e.clientY + "px";
+
+    document.body.appendChild(star);
+
+    // Remove the star after animation
+    setTimeout(() => star.remove(), 800);
+});
+
+    </script>
+
+</body>
+</html>
