@@ -1,0 +1,38 @@
+/* ✨ Magical Fireflies */
+.firefly {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, #fff7b3, #ffd86b);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.9;
+    animation: fly 6s infinite ease-in-out;
+    box-shadow: 0 0 10px #ffeaa7, 0 0 20px #ffd86b;
+}
+
+@keyframes fly {
+    0%   { transform: translate(0,0) scale(1); }
+    25%  { transform: translate(60px, -40px) scale(1.2); }
+    50%  { transform: translate(120px, 20px) scale(0.8); }
+    75%  { transform: translate(-40px, 40px) scale(1.1); }
+    100% { transform: translate(0,0) scale(1); }
+}
+
+/* ✨ Star Trail Following Mouse */
+.star {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle, #fff, #ffeaa7);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.9;
+    mix-blend-mode: screen;
+    animation: twinkle 0.8s forwards;
+}
+
+@keyframes twinkle {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0.2); opacity: 0; }
+}
